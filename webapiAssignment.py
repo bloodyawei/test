@@ -1,7 +1,12 @@
 import requests
+from urllib.error import HTTPError,URLError
 
 def fetch_object(film_url):
-    return requests.get(film_url).json()
+    try:
+        response = requests.get(film_url).json()
+    except(HTTPError, URLError) as e:
+        return None
+    return response
 
 def search_film_species_sum(films, title):
     for film in films:
